@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "flowbite-react";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/public/logo.png";
 
 export default function Header() {
   return (

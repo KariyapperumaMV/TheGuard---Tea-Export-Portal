@@ -1,16 +1,16 @@
 import { Card } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Swal from "sweetalert2";
-import Loading from "../../components/public/Loading";
-import background from "./../../assets/background.png";
-import jsPDF from "jspdf";
 import "jspdf-autotable";
+import jsPDF from "jspdf";
+import Swal from "sweetalert2";
 import html2canvas from "html2canvas";
-import PredictionStatistics from "../../components/predictions/PredictionStatistics";
+import Loading from "../../components/public/Loading";
+import background from "./../../assets/public/background.png";
 import PredictionTable from "../../components/predictions/PredictionTable";
 import PredictionChart from "../../components/predictions/PredictionChart";
 import PredictionFilter from "../../components/predictions/PredictionFilter";
+import PredictionStatistics from "../../components/predictions/PredictionStatistics";
 
 const TeaPredictionDetails = () => {
   const { id } = useParams();
@@ -98,14 +98,14 @@ const TeaPredictionDetails = () => {
 
   return (
     <div
-      className="flex min-h-screen p-4 flex-col justify-center items-center bg-cover bg-center"
+      className="min-h-screen p-4 bg-cover bg-center"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className="w-full max-w-7xl bg-white/30 backdrop-blur-md p-6 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold text-green-600 text-center mb-6">
-          Tea Price Prediction Details
-        </h2>
-
+      <h2 className="text-3xl font-bold text-green-600 text-center mb-6">
+        Tea Price Prediction Details
+      </h2>
+      <hr className="border-b-1 border-green-600 mx-auto mb-6" />
+      <div className="w-full bg-white/30 backdrop-blur-md p-6 rounded-lg shadow-lg">
         <div className="flex justify-between text-black text-lg mb-4">
           <div className="flex flex-col">
             <p className="text-lg font-semibold text-green-600 ">

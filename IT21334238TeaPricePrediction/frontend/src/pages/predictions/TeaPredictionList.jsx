@@ -2,7 +2,7 @@ import { Trash2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import background from "./../../assets/background.png";
+import background from "./../../assets/public/background.png";
 
 const TeaPredictionList = () => {
   const [predictions, setPredictions] = useState([]);
@@ -96,16 +96,16 @@ const TeaPredictionList = () => {
 
   return (
     <div
-      className="flex min-h-screen p-4 flex-col items-center bg-cover bg-center"
+      className="min-h-screen p-4 bg-cover bg-center"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className="w-full max-w-5xl">
-        <h2 className="text-3xl font-bold mb-6 text-green-600 text-center mt-10">
-          Tea Prediction Summaries
-        </h2>
-
+      <h2 className="text-3xl font-bold text-green-600 text-center mb-2">
+        Tea Prediction Summaries
+      </h2>
+      <hr className="border-b-1 border-green-600 mx-auto mb-6" />
+      <div className="w-full">
         {/* Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {predictions.map((prediction, index) => {
             const createdAt = new Date(prediction.createdAt);
             const date = createdAt.toLocaleDateString();
