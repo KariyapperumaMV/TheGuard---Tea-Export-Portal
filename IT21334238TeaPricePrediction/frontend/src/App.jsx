@@ -7,6 +7,7 @@ import TeaPredictionList from "./pages/predictions/TeaPredictionList";
 import TeaPredictionDetails from "./pages/predictions/TeaPredictionDetails";
 import TeaPrice from "./pages/prices/TeaPrice";
 
+
 export default function App() {
   return (
     <BrowserRouter>

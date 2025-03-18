@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import background from "./../../assets/background.png";
 
+
 // Define region categories with their associated subregions
 const regionCategories = {
   "High Grown": {
