@@ -1,0 +1,187 @@
+import { Card } from "flowbite-react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import Loading from "../../components/public/Loading";
+import background from "./../../assets/background.png";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import html2canvas from "html2canvas";
+import PredictionStatistics from "../../components/predictions/PredictionStatistics";
+import PredictionTable from "../../components/predictions/PredictionTable";
+import PredictionChart from "../../components/predictions/PredictionChart";
+import PredictionFilter from "../../components/predictions/PredictionFilter";
+
+const TeaPredictionDetails = () => {
+  const { id } = useParams();
+  const [prediction, setPrediction] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    const fetchPredictionDetails = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}tea/predictions/${id}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch prediction details");
+        }
+        const data = await response.json();
+        setPrediction(data);
+        setFilteredData(data.data);
+      } catch (error) {
+        Swal.fire("Error", error.message, "error");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPredictionDetails();
+  }, [id]);
+
+  const calculateStatistics = (data) => {
+    const prices = data.map((p) => p.predicted_price);
+    const startDate = data[0].date;
+    const endDate = data[data.length - 1].date;
+    const highestPrice = Math.max(...prices);
+    const lowestPrice = Math.min(...prices);
+    const avgPrice = (
+      prices.reduce((a, b) => a + b, 0) / prices.length
+    ).toFixed(2);
+    return { startDate, endDate, highestPrice, lowestPrice, avgPrice };
+  };
+
+  //Handle Download PDF
+  const downloadPDF = async () => {
+    const doc = new jsPDF("p", "mm", "a4");
+
+    for (let index = 0; index < filteredData.length; index++) {
+      const cardElement = document.getElementById(`cardContainer-${index}`);
+
+      if (cardElement) {
+        try {
+          const canvas = await html2canvas(cardElement, { scale: 2 });
+          const imgData = canvas.toDataURL("image/png");
+          const imgWidth = 190;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+          if (index > 0) {
+            doc.addPage();
+          }
+
+          doc.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+        } catch (error) {
+          console.error("Error capturing card:", error);
+        }
+      }
+    }
+
+    doc.save("Tea_Prediction_Report.pdf");
+  };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  const createdAt = new Date(prediction.createdAt);
+  const date = createdAt.toLocaleDateString();
+  const time = createdAt.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return (
+    <div
+      className="flex min-h-screen p-4 flex-col justify-center items-center bg-cover bg-center"
+      style={{ backgroundImage: `url(${background})` }}
+    >
+      <div className="w-full max-w-7xl bg-white/30 backdrop-blur-md p-6 rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold text-green-600 text-center mb-6">
+          Tea Price Prediction Details
+        </h2>
+
+        <div className="flex justify-between text-black text-lg mb-4">
+          <div className="flex flex-col">
+            <p className="text-lg font-semibold text-green-600 ">
+              <strong>Periods:</strong> {prediction.periods}
+            </p>
+            <p className="text-md text-gray-800">
+              <strong>Findout Date:</strong> {date}
+            </p>
+            <p className="text-md text-gray-800">
+              <strong>Findout Time:</strong> {time}
+            </p>
+          </div>
+        </div>
+
+        {/* Filter Buttons */}
+        <div className="flex justify-between mb-6">
+          {/* Download Report Button */}
+          <div className="text-center">
+            <button
+              onClick={downloadPDF}
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            >
+              Download Report as PDF
+            </button>
+          </div>
+        </div>
+
+        <PredictionFilter
+          prediction={prediction}
+          setFilteredData={setFilteredData}
+        />
+
+        {/* Line Charts for Each Region */}
+        {filteredData.map((region, index) => {
+          const { startDate, endDate, highestPrice, lowestPrice, avgPrice } =
+            calculateStatistics(region.data);
+          return (
+            <div
+              key={index}
+              id={`cardContainer-${index}`}
+              className="mb-6 flex"
+            >
+              <Card className="w-full">
+                <h3 className="text-2xl font-semibold text-cyan-800 mb-4">
+                  {region.region
+                    .replace(/_/g, " ")
+                    .replace(/\b\w/g, (char) => char.toUpperCase())}
+                </h3>
+                <div className="flex justify-between">
+                  <div
+                    id={`chartContainer-${index}`}
+                    className="mt-6 w-2/3 pr-10"
+                  >
+                    {" "}
+                    <PredictionChart index={index} data={region.data} />
+                  </div>
+
+                  {/* Statistics Table */}
+                  <div className="flex w-1/3">
+                    <PredictionStatistics
+                      startDate={startDate}
+                      endDate={endDate}
+                      highestPrice={highestPrice}
+                      lowestPrice={lowestPrice}
+                      avgPrice={avgPrice}
+                    />
+                  </div>
+                </div>
+                <PredictionTable data={region.data} />
+              </Card>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default TeaPredictionDetails;
