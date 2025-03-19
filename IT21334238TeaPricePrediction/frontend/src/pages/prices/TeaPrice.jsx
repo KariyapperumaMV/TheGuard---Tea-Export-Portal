@@ -6,6 +6,7 @@ import { Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 import DatePicker from "react-datepicker";
 import background from "./../../assets/public/background.png";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 // Define region categories with their associated subregions
