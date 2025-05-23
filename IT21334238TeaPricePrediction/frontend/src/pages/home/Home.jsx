@@ -67,17 +67,17 @@ const Home = () => {
       title: "Analyze Market Trends",
       description:
         "Explore historical tea price trends and gain insights into market fluctuations. Use past data to make informed decisions.",
-      navigateTo: "/previous-prices",
+      navigateTo: "/historical-prices-list",
       image: card2,
-      onClick: () => navigate("/previous-values"),
+      onClick: () => navigate("/historical-prices-list"),
     },
     {
       title: "Browse Historical Prices",
       description:
         "Access a detailed record of past tea prices to track changes and compare market values over time.",
-      navigateTo: "/previous-prices",
+      navigateTo: "/historical-prices",
       image: card3,
-      onClick: () => navigate("/previous-prices"),
+      onClick: () => navigate("/historical-prices"),
     },
   ];
 

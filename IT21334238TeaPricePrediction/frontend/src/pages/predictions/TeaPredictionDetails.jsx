@@ -109,33 +109,21 @@ const TeaPredictionDetails = () => {
         <div className="flex justify-between text-black text-lg mb-4">
           <div className="flex flex-col">
             <p className="text-lg font-semibold text-green-600 ">
-              <strong>Periods:</strong> {prediction.periods}
+              <strong>Forecast Periods:</strong> {prediction.periods} Months
             </p>
             <p className="text-md text-gray-800">
-              <strong>Findout Date:</strong> {date}
+              <strong>Prediction Generated on:</strong> {date}
             </p>
             <p className="text-md text-gray-800">
-              <strong>Findout Time:</strong> {time}
+              <strong>Time:</strong> {time}
             </p>
-          </div>
-        </div>
-
-        {/* Filter Buttons */}
-        <div className="flex justify-between mb-6">
-          {/* Download Report Button */}
-          <div className="text-center">
-            <button
-              onClick={downloadPDF}
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-            >
-              Download Report as PDF
-            </button>
           </div>
         </div>
 
         <PredictionFilter
           prediction={prediction}
           setFilteredData={setFilteredData}
+          downloadPDF={downloadPDF}
         />
 
         {/* Line Charts for Each Region */}

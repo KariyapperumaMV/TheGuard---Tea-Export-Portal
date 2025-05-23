@@ -100,7 +100,7 @@ const TeaPredictionList = () => {
       style={{ backgroundImage: `url(${background})` }}
     >
       <h2 className="text-3xl font-bold text-green-600 text-center mb-2">
-        Tea Prediction Summaries
+        Tea Price Forecast Summaries
       </h2>
       <hr className="border-b-1 border-green-600 mx-auto mb-6" />
       <div className="w-full">
