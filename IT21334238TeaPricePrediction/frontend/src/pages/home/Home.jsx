@@ -108,11 +108,11 @@ const Home = () => {
 
       {/* Modal for entering the number of periods */}
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>Enter Month Count</Modal.Header>
+        <Modal.Header>Enter Forecast Period</Modal.Header>
         <Modal.Body>
           <TextInput
             type="number"
-            placeholder="Enter number of months"
+            placeholder="Forecast period in months (max 12)"
             value={periods}
             onChange={(e) => {
               const value = e.target.value;
@@ -139,7 +139,7 @@ const Home = () => {
                 <span className="pl-3">Submitting...</span>
               </>
             ) : (
-              "Submit"
+              "Generate Forecast"
             )}
           </Button>
           <Button
