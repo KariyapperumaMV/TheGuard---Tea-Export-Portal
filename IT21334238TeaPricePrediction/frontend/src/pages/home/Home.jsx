@@ -112,7 +112,7 @@ const Home = () => {
         <Modal.Body>
           <TextInput
             type="number"
-            placeholder="Forecast period in months (max 12)"
+            placeholder="Forecast period in months (max 12) "
             value={periods}
             onChange={(e) => {
               const value = e.target.value;
