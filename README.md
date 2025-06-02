@@ -1,98 +1,24 @@
-## **System Architecture**
+# Intelligent Tea Plantation Management and Export Enhancement Portal
 
-The architecture consists of five layers: **User Interface (UI), Backend, Machine Learning (ML), Image Processing, and Database.**
+![the-guard-home](https://github.com/user-attachments/assets/8e05a2e3-4362-4bb4-b4f8-77ff6943fc68)
 
-### **1. User Interface (Frontend)**
+This website presents the results and methodology of a research project focused on forecasting tea production, foreign exchange earnings, and tea prices in Sri Lanka using time series analysis. It provides an interactive platform to explore trends, model forecasts, and data insights from 2012 to 2024, along with projections for future years.
 
-- **Purpose**: Provides an intuitive and responsive interface for farmers, exporters, and plantation managers.
-- **Technologies**:
-  - **Frontend Framework**: React, React Native.
-  - **Styling**: Tailwind CSS.
-  - **State Management**: Redux and Context API.
-  - **APIs/Integration**: Axios for data fetching.
-- **Features**:
-  - Dashboard showing foreign exchange predictions.
-  - Visualized data (charts, graphs) using libraries like Chart.js.
-  - Image upload interface for tea leaves disease detection.
-  - Export insights and market trends.
+The site highlights the use of ARIMA and the Prophet models to analyze monthly production, export, and tea price data. Visitors can view visualizations of historical patterns and future estimates, supported by explanations of the forecasting process and findings.
 
----
+The application is built using modern web technologies for ease of access and performance. It aims to serve researchers, policymakers, and stakeholders in the tea industry by offering clear insights into economic patterns and supporting data-driven decision-making.
 
-### **2. Backend**
+For more details on the methodology or results, please refer to the full thesis or contact the research team via the website’s contact page.
 
-- **Purpose**: Manages APIs, handles requests, and serves as a bridge between the frontend and machine learning models.
-- **Technologies**:
-  - **Framework**: Node.js with Express.js, Flask.
-  - **Authentication**: JWT (JSON Web Tokens).
-  - **API Design**: REST for data exchange.
-- **Services**:
-  - Endpoint to query ML models for predictions.
-  - Data validation and preprocessing (before sending to ML pipelines).
-  - Integration with image processing service for disease prediction.
+## Supporting Repositories
 
----
+The full source code for model training, data preprocessing, and visualizations is available in separate GitHub repositories.
 
-### **3. Machine Learning Services**
+- [Model Training](https://github.com/hasithapeiris/tea-plantation-portal)
+- [Project Website](https://github.com/hasithapeiris/tea-export-portal)
+- [Research Website](https://github.com/hasithapeiris/research-website)
 
-- **Purpose**: Handles the core ML functionality like predictions for production, markets, prices, and disease identification.
-- **Technologies**:
-  - **Programming Language**: Python for its extensive ML ecosystem.
-  - **Frameworks**:
-    - **For ML Models**: TensorFlow, PyTorch, or Scikit-learn.
-    - **For Deployment**: Flask for exposing ML models as APIs.
-    - **For Time-Series Analysis**: Prophet or ARIMA (for foreign exchange prediction).
-    - **For Price Prediction and Market Analysis**: XGBoost or Random Forest.
-  - **Image Processing**:
-    - OpenCV and TensorFlow/Keras for disease detection using convolutional neural networks (CNNs).
-    - Pretrained models like ResNet or EfficientNet for fine-tuning.
+## Contact
 
----
-
-### **4. Database**
-
-- **Purpose**: Store user data, historical production data, market data, and results.
-- **Technologies**:
-  - **Primary Database**:
-    - MongoDB (NoSQL) for flexible schema to manage varied datasets like tea production data, weather, prices, and logs.
-  - **Cache**: Redis for quick access to frequently queried predictions.
-
----
-
-### **5. Deployment and DevOps**
-
-- **Purpose**: Ensures scalability, availability, and ease of updates.
-- **Technologies**:
-  - **Containerization**: Docker to package applications for consistent environments.
-  - **Orchestration**: Kubernetes for deploying ML models and scaling backend.
-  - **Cloud Platforms**:
-    - AWS/GCP/Azure for hosting.
-  - **CI/CD**: GitHub Actions for automated deployment pipelines.
-
----
-
-## **Workflow of the System**
-
-1. **User Input**: Users upload tea leaves images or input historical data via the UI.
-2. **API Request**: Frontend sends the data to the backend.
-3. **Preprocessing**: Backend validates and preprocesses the data.
-4. **Prediction**:
-   - Data is sent to appropriate ML models:
-     - Foreign exchange prediction → Time-series models.
-     - Market analysis → Classification models.
-     - Disease detection → CNN image classification.
-     - Price prediction → Regression models.
-5. **Results Storage**: Predictions are cached and stored in the database for future reference.
-6. **Visualization**: Results are sent back to the UI for user-friendly display.
-
----
-
-## **Technology Summary**
-
-| Component            | Technology                            |
-| -------------------- | ------------------------------------- |
-| **Frontend**         | React, React Native, Tailwind CSS     |
-| **Backend**          | Node.js, Express.js, Flask, JWT, REST |
-| **ML Models**        | Python, TensorFlow, PyTorch, FastAPI  |
-| **Image Processing** | OpenCV, CNNs (ResNet/EfficientNet)    |
-| **Database**         | MongoDB, Redis                        |
-| **Deployment**       | Docker, Kubernetes, AWS/GCP/Azure     |
+- [Live Web App](https://theguard.netlify.app)
+- [Research Website](https://theguard-research.netlify.app) 
